@@ -29,6 +29,6 @@ export class Link {
   createdAt: Date;
 
   get shortLink(): string {
-    return `http://localhost:3000/{ $code }`;
+    return `${process.env.SERVER_HOST}/{ $code }`;
   }
 }

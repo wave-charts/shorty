@@ -6,7 +6,7 @@ const databaseName = `shorty_${envName}.sqlite3`;
 export const configuration: TypeOrmModuleOptions = {
   type: 'sqlite',
   database: `db/${databaseName}`,
-  synchronize: false,
+  synchronize: true,
   migrationsRun: false,
   logging: (process.env.NODE_ENV !== 'test'),
   entities: ['dist/src/**/*.entity.js'],

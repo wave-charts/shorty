@@ -1,3 +1,4 @@
+import { FetchDto } from './dto/fetch.dto';
 import * as ShortId from 'shortid';
 
 import { Injectable } from '@nestjs/common';
@@ -24,7 +25,7 @@ export class LinkService {
     if (existing) {
       let ret = new ShowDto()
       ret.longUrl = existing.url
-      ret.shortLink = `http://localhost:3000/${existing.code}`
+      ret.shortLink = `${process.env.SERVER_HOST}/${existing.code}`
 
       return ret;
     }
@@ -41,8 +42,14 @@ export class LinkService {
 
     let obj = new ShowDto
     obj.longUrl = link.url
-    obj.shortLink = `http://localhost:3000/${link.code}`
+    obj.shortLink = `${process.env.SERVER_HOST}/${link.code}`
 
     return obj;
+  }
+
+  async fetch(shortCode: string): Promise<string> {
+    const record = await this.repo.findOne({ code:shortCode });
+    if (!record) return "";
+    return record.url;
   }
 }
