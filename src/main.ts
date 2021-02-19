@@ -2,7 +2,13 @@ import { application } from './application';
 
 async function bootstrap() {
   const app = await application();
-  app.listen(3000);
+  
+  app.enableCors({
+    origin: process.env.CORS_ALLOW_ORIGIN.split(","),
+    methods: process.env.CORS_ALLOW_METHODS.split(","),
+  });
+  
+  app.listen(3002);
 }
 
 bootstrap();
